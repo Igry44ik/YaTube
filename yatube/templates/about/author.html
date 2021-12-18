@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+
+    {% block title %} Об авторе {% endblock %}
+        {% block content %}
+        <div class="px-4 my-4 text-center">
+        <h1 class="display fw-bold">Об авторе</h1>
+        </div>
+        <div>
+            <img class="d-block mx-auto mb-4" src="{% static 'img/my_photo.jpg' %}" alt="" width="300" height="400">
+            <div class="col-lg-6 mx-auto">
+            <p class="lead mb-4"> Меня зовут Игорь Кулаков и я программист </p>
+            <p class="lead mb-4"> Студент ЯП, который хочет стать лучше, чем был вчера!</p>
+            <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+        </div>
+            <div class="container py-5">
+                <p class="lead mb-4">  Программирую, потому что: </p>
+                </p>
+                <ul>
+                    <li>
+                    <p class="lead mb-4"> Это постоянно новые задачи и вызовы самому себе! </p>
+                    </li>
+                    <li>
+                    <p class="lead mb-4"> Это постоянное обучение и RESEARCH, будь я хоть джун, сеньор или тимлид! </p>
+                    </li>
+                    <li>
+                    <p class="lead mb-4"> Под моими пальцами творится магия, никому неизвестная! </p>
+                    </li>
+            </div>
+            <div class="container"
+                </p>
+                <p class="lead mb-4">А творить волшебство мне помогает вовсе не Темный Лорд, а мой личный Хранитель Домашнего очага и моего рабочего кресла - кот Доби! </p>
+            </div>
+                <div class="container py-3">
+                    <img src="{% static "img/cat_dobi.png" %}" alt="Мой Хранитель" width="225" height="400">
+                </div>
+                    <p>
+                        <a href="https://github.com/Igry44ik">Профиль Github</a>
+                    </p>
+                    <p>
+                        <a href="https://vk.com/igoryan44ik">Профиль ВК</a>
+                    </p>
+                </nav>
+              
+    </div>
+        {% endblock %}
+
+
+

@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %} Технологии, использованные в проекте {% endblock %}
+{% block content %}
+{% comment %} Колонки с отсупом сверху и снизу {% endcomment %}
+<div class = "row">
+    <h2> Освоенные технологии </h2>
+<div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
+      <div class="feature col">
+        <div class="feature-icon bg-primary bg-gradient">
+          <svg class="bi" width="1em" height="1em"><use xlink:href="#collection"></use></svg>
+        </div>
+        <h2>Python</h2>
+        <p>Мой второй язык программирования, но первый, который изучаю так серьезно! По уверениям авторитетных товарищей - это лучший язык программирования для начала.</p>
+          <svg class="bi" width="1em" height="1em"><use xlink:href="#chevron-right"></use></svg>
+        </a>
+      </div>
+      <div class="feature col">
+        <div class="feature-icon bg-primary bg-gradient">
+          <svg class="bi" width="1em" height="1em"><use xlink:href="#people-circle"></use></svg>
+        </div>
+        <h2>Django</h2>
+        <p>Первый и пока единственный фреймворк, который начал изучать. Здесь очень подойдет фраза: "Что-то все еще не понятно, но очень интересно!"</p>
+          <svg class="bi" width="1em" height="1em"><use xlink:href="#chevron-right"></use></svg>
+        </a>
+      </div>
+      <div class="feature col">
+        <div class="feature-icon bg-primary bg-gradient">
+          <svg class="bi" width="1em" height="1em"><use xlink:href="#toggles2"></use></svg>
+        </div>
+        <h2>HTML</h2>
+        <p>Если сидеть на пабликах про программирование, то все говорят, что это не языке программирования. Но мне очень нравится верстать страницы, потому что тут место моей фантазии. Правда она ограничена моими навыками:)</p>
+          <svg class="bi" width="1em" height="1em"><use xlink:href="#chevron-right"></use></svg>
+        </a>
+      </div>
+    </div>
+{% endblock %}
+
