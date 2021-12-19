@@ -15,8 +15,7 @@ class Group(models.Model):
 
 class Post(models.Model):
     text = models.TextField("Текст поста", help_text="Введите текст поста")
-    pub_date = models.DateTimeField("Дата публикации", auto_now_add=True,
-                                    db_index=True)
+    pub_date = models.DateTimeField("Дата публикации", auto_now_add=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE,
                                related_name="posts", verbose_name="Автор")
     group = models.ForeignKey(Group, on_delete=models.CASCADE,
@@ -58,3 +57,4 @@ class Follow(models.Model):
     class Meta:
         verbose_name = "Подписчик"
         verbose_name_plural = "Подписчики"
+        unique_together = ["author", "user"]

@@ -67,7 +67,7 @@ class PostFormTests(TestCase):
             data=form_data,
             follow=True
         )
-        self.assertRedirects(response, reverse('posts:profile',
+        self.assertRedirects(response, reverse("posts:profile",
                                                args=[USERNAME]))
         self.assertEqual(Post.objects.count(), posts_count + 1)
         last_post = Post.objects.latest("id")

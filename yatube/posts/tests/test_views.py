@@ -104,7 +104,7 @@ class PostPagesTests(TestCase):
         }
         for value, expected in form_fields.items():
             with self.subTest(value=value):
-                form_field = response.context['form'].fields[value]
+                form_field = response.context["form"].fields[value]
                 self.assertIsInstance(form_field, expected)
 
     def test_create_post_correct_context(self):
@@ -197,7 +197,7 @@ class TestPaginator(TestCase):
     def test_paginator(self):
         urls = [
             reverse("posts:index"),
-            reverse("posts:slug", kwargs={"slug": self.group.slug}),
+            reverse("posts:slug", kwargs={"slug": self.group.slug, }),
             reverse("posts:profile", args=[USERNAME])
         ]
         for url in urls:

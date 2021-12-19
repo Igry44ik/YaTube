@@ -95,7 +95,7 @@ def post_edit(request, post_id):
 
 @login_required
 def add_comment(request, post_id):
-    post = get_object_or_404(Post, id=post_id)
+    post = get_object_or_404(Post, pk=post_id)
     form = CommentForm(request.POST or None)
     if form.is_valid():
         comment = form.save(commit=False)
@@ -108,24 +108,23 @@ def add_comment(request, post_id):
 @login_required
 def follow_index(request):
     """Страница постов тех авторов, на которых подписан пользователь"""
-    post_list = Post.objects.filter(author=request.user)
-    paginator = Paginator(post_list, settings.QUANTITY_POSTS)
+    posts_list = Post.objects.filter(author=request.user)
+    paginator = Paginator(posts_list, settings.QUANTITY_POSTS)
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
     context = {
         "page_obj": page_obj,
     }
-    return render(request, 'posts/follow.html', context)
+    return render(request, "posts/follow.html", context)
 
 
 @login_required
 def profile_follow(request, username):
-    user = get_object_or_404(User, username=request.user.username)
     author = get_object_or_404(User, username=username)
-    if user != author:
-        Follow.objects.get_or_create(user=user,
+    if request.user != author:
+        Follow.objects.get_or_create(user=request.user,
                                      author=author)
-    return redirect('posts:profile', username=author)
+    return redirect("posts:profile", username=username)
 
 
 @login_required
@@ -134,6 +133,6 @@ def profile_unfollow(request, username):
     get_object_or_404(
         Follow,
         user=request.user,
-        author__username=username
+        author_username=username
     ).delete()
     return redirect("posts:profile", username=username)
