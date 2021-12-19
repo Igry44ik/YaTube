@@ -108,7 +108,7 @@ def add_comment(request, post_id):
 @login_required
 def follow_index(request):
     """Страница постов тех авторов, на которых подписан пользователь"""
-    posts_list = Post.objects.filter(author=request.user)
+    posts_list = Post.objects.filter(author__following__user=request.user)
     paginator = Paginator(posts_list, settings.QUANTITY_POSTS)
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
@@ -133,6 +133,6 @@ def profile_unfollow(request, username):
     get_object_or_404(
         Follow,
         user=request.user,
-        author_username=username
+        author__username=username
     ).delete()
     return redirect("posts:profile", username=username)

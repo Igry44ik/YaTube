@@ -4,11 +4,11 @@
    
   {% block title %} Последние обновления на сайте {% endblock %}
     <h1> {% block header %}Последние обновления на сайте{% endblock %} </h1>
-     {% block content%}
+    {% block content%}
+    {% load cache %}
      {% include "posts/includes/switcher.html" %}
       <div class="container py-1">
-      {% load cache %}
-        {% cache 20 index_page %}
+        {% cache 20 index_page in page_obj %}
         {% for post in page_obj %}
           <ul>
             <li>
@@ -26,13 +26,14 @@
           <p>
             <a href="{% url 'posts:post_detail' post.id %}">Подробная информация</a>
           </p>
+          {% if post.group %}
           <p>
             <a href="{% url 'posts:slug' post.group.slug %}">Все записи группы</a>
           </p>
+          {% endif %}
             {% if not forloop.last %}<hr>{% endif %}
         {% endfor %}
       {% endcache %}
       </div>
       {% include "posts/includes/paginator.html" %}
-
     {% endblock %}
