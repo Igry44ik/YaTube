@@ -2,11 +2,13 @@ from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.shortcuts import get_object_or_404, redirect, render
+from django.views.decorators.cache import cache_page
 
 from .forms import CommentForm, PostForm
 from .models import Follow, Group, Post, User
 
 
+@cache_page(20)
 def index(request):
     post_list = Post.objects.all()
     paginator = Paginator(post_list, settings.QUANTITY_POSTS)
@@ -32,15 +34,13 @@ def group_posts(request, slug):
 
 
 def profile(request, username):
-    following = False
     author = get_object_or_404(User, username=username)
     profile_list = author.posts.all()
     paginator = Paginator(profile_list, settings.QUANTITY_POSTS)
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
-    if request.user.is_authenticated:
-        following = Follow.objects.filter(user=request.user,
-                                          author=author).exists()
+    following = Follow.objects.filter(author=author)
+    following if request.user.is_authenticated else False
     context = {
         "author": author,
         "page_obj": page_obj,
