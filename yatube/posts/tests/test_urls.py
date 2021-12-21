@@ -1,4 +1,5 @@
 from django.contrib.auth import get_user_model
+from django.core.cache import cache
 from django.test import Client, TestCase
 from django.urls import reverse
 
@@ -67,6 +68,7 @@ class StaticURLTests(TestCase):
                                               args=[self.post.id]),
         }
         for template, url in templates_url_names.items():
+            cache.clear()
             with self.subTest(url=url):
                 response = self.authorized_client.get(url)
                 self.assertTemplateUsed(response, template)

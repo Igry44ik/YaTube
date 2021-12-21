@@ -52,6 +52,7 @@ class PostPagesTests(TestCase):
     @classmethod
     def tearDownClass(cls):
         super().tearDownClass()
+        cache.clear()
         shutil.rmtree(TEMP_MEDIA_ROOT, ignore_errors=True)
 
     def tets_pages_uses_correct_template(self):
@@ -77,6 +78,7 @@ class PostPagesTests(TestCase):
             reverse("posts:post_detail", args=[self.post.id]),
         }
         for reverse_name in templates_pages_names:
+            cache.clear()
             with self.subTest(reverse_name=reverse_name):
                 response = self.authorized_client.get(reverse_name)
                 if reverse_name == reverse("posts:post_detail",
@@ -84,16 +86,16 @@ class PostPagesTests(TestCase):
                     first_object = response.context["post"]
                 else:
                     first_object = response.context.get("page_obj")[0]
-                post_author_0 = first_object.author
-                post_id_0 = first_object.pk
-                post_text_0 = first_object.text
-                post_group_0 = first_object.group.slug
-                post_image_0 = first_object.image
-                self.assertEqual(post_text_0, self.post.text)
-                self.assertEqual(post_id_0, self.post.pk)
-                self.assertEqual(post_author_0, self.post.author)
-                self.assertEqual(post_group_0, self.group.slug)
-                self.assertEqual(post_image_0, self.post.image)
+                    post_author_0 = first_object.author
+                    post_id_0 = first_object.pk
+                    post_text_0 = first_object.text
+                    post_group_0 = first_object.group.slug
+                    post_image_0 = first_object.image
+                    self.assertEqual(post_text_0, self.post.text)
+                    self.assertEqual(post_id_0, self.post.pk)
+                    self.assertEqual(post_author_0, self.post.author)
+                    self.assertEqual(post_group_0, self.group.slug)
+                    self.assertEqual(post_image_0, self.post.image)
 
     def test_post_edit_correct_context(self):
         response = self.authorized_client.get(reverse("posts:post_edit",
@@ -122,6 +124,7 @@ class PostPagesTests(TestCase):
         """Новый пост отображается на главной странице
             и на странице группы.
         """
+        cache.clear()
         url = ((reverse("posts:index")),
                reverse("posts:slug", kwargs={"slug": self.group.slug}),)
         for urls in url:
