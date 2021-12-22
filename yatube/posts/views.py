@@ -8,7 +8,7 @@ from .forms import CommentForm, PostForm
 from .models import Follow, Group, Post, User
 
 
-@cache_page(20)
+@cache_page(settings.CACHE_TIME)
 def index(request):
     post_list = Post.objects.all()
     paginator = Paginator(post_list, settings.QUANTITY_POSTS)
@@ -39,8 +39,9 @@ def profile(request, username):
     paginator = Paginator(profile_list, settings.QUANTITY_POSTS)
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
-    following = Follow.objects.filter(author=author)
-    following if request.user.is_authenticated else False
+    username = request.user
+    following = (Follow.objects.filter(author=author, user=username).exists()
+                 if request.user.is_authenticated else False)
     context = {
         "author": author,
         "page_obj": page_obj,
